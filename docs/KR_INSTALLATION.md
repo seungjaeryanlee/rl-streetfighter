@@ -1,20 +1,20 @@
-# Installation
+# 설치
 
-This installation has been tested on **Ubuntu 16.04 LTS** with **Python 3.6 and 3.7** using **Anaconda**.
+이 설치법은 **Ubuntu 16.04 LTS** 에서 **Anaconda**와 **Python 3.6, 3.7** 사용했을 때 정상작동하는 것을 확인했습니다.
 
 
 
-## Create Conda Environment
+## Conda Environment 만들기
 
-If you don't have Anaconda, please install it following [this guide](https://conda.io/docs/user-guide/install/linux.html).
+컴퓨터에 Anaconda 가 없다면 , [이 가이드](https://conda.io/docs/user-guide/install/linux.html)를 따라 설치하세요.
 
-Then, you can create `sf3` environment using the `environment.yml` provided in this repository with the command below.
+그 후, 아래의 커맨드로 이 레포지토리에 있는 `environment.yml`을 통해 `sf3` 라는 이름의 환경을 만드세요.
 
 ```
 conda env create -f environment.yml
 ```
 
-While creating, you should get logs something like this:
+`sf3` 환경을 만들 때, 아래와 같은 로그가 출력될 것입니다.
 
 ```
 Solving environment: done
@@ -60,7 +60,7 @@ Successfully installed MAMEToolkit-1.0.2
 #     $ conda deactivate
 ```
 
-Activate the `sf3` environment with one of the following commands below.
+아래의 커맨드 중 하나를 써서 `sf3` 환경을 활성화시키세요.
 
 ```
 conda activate sf3
@@ -69,13 +69,13 @@ source activate sf3
 
 ## MAME
 
-There are [quite a few prerequisite Ubuntu packages](https://docs.mamedev.org/initialsetup/compilingmame.html#debian-and-ubuntu-including-raspberry-pi-and-odroid-devices) for compiling MAME. Install them with the command below.
+MAME를 컴파일하기 위해서는 [여러 개의 우분투 패키지](https://docs.mamedev.org/initialsetup/compilingmame.html#debian-and-ubuntu-including-raspberry-pi-and-odroid-devices) 가 필요합니다. 아래 커맨드로 설치하세요.
 
 ```
 sudo apt-get install git build-essential libsdl2-dev libsdl2-ttf-dev libfontconfig-dev qt5-default
 ```
 
-We also need to update `libstdc++6`. Since it is not in default repositories, we need to add a repository then upgrade the package. [[Source]](https://github.com/tensorflow/serving/issues/819#issuecomment-374526534)
+또 `libstdc++6` 라는 우분투 패키지를 업데이트해야 하는데. 이 패키지의 최신버전이 기본 레포지토리에 없으므로, 레포지토리를 추가한 후 업그레이드해야 합니다. [[출처]](https://github.com/tensorflow/serving/issues/819#issuecomment-374526534)
 
 ```
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -87,45 +87,46 @@ sudo apt-get upgrade libstdc++6
 
 ## Qt
 
-Creating the `sf3` environment with `environment.yml` should have installed Qt on your computer. Verify this with the `qmake` command:
+`environment.yml` 을 사용해서 `sf3` 환경을 만들었다면, 컴퓨터에 Qt가 설치되었을 것입니다. `qmake` 커맨드로 그런지 확인하세요.
 
 ```
 qmake -version
 ```
 
-Everything has been installed correctly if you get a Qt 5.9 version with the library path.
+아래와 같이 5.9 버전과 라이브러리 경로가 출력되었다면 정상입니다.
 
 ```
 QMake version 3.1
 Using Qt version 5.9.6 in /home/rlee/anaconda3/sf3/lib
 ```
 
-Set an environment variable `LD_LIBRARY_PATH` to the same location. (**WARNING: Change `/rlee/` to match your computer!**)
+`LD_LIBRARY_PATH`라는 환경 변수를 이 라이브러리 경로가 되게 세팅합니다.
+
 
 ```
 export LD_LIBRARY_PATH=/home/rlee/anaconda3/envs/sf3/lib
 ```
 
-**NOTE: The command above only sets the environment variable in the current terminal. If you want to run MAME in another terminal, you need to run that statement again in that therminal.**
+**참고: 환경변수를 세팅하는 위 커맨드는 현재 터미널에만 적용됩니다. 즉, 새로운 터미널에서 플레이하려면 저 커맨드를 다시 써야 합니다.**
 
 
 
-## Download ROM
+## ROM 다운로드
 
-Download `sfiii3n.zip` from [some ROM website](https://edgeemu.net/details-24413.htm) and put it in `roms/` directory.
-
-
+[적당한 ROM 웹사이트](https://edgeemu.net/details-24413.htm)에서 `sfiii3n.zip` ROM 파일을 다운받아서 `roms/`에 넣으세요.
 
 
-## Run Test Script
 
-Try running `test_installation.py`:
+
+## 설치 테스트하기
+
+`test_installation.py` 스크립트를 실행시키세요:
 
 ```
 python test_installation.py
 ```
 
-A full screen MAME emulator should start with SF3 loaded, and after about 10 seconds, the emulator should quit. The console logs should be:
+전체화면으로 SF3가 로드된 MAME 에뮬레이터가 시작하고, 약 10초 후에 꺼질 것입니다. 정상적으로 설치되었다면 출력은 아래와 같을 것입니다.
 
 ```
 [test] Loaded SF3 from ROM file
