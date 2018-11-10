@@ -1,0 +1,6 @@
+name: sf3
+dependencies:
+ - pip
+ - pip:
+    - numpy
+    - MAMEToolkit
