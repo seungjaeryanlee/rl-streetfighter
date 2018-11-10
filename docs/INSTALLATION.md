@@ -130,4 +130,4 @@ A full screen MAME emulator should start, and after about 10 seconds, the emulat
 [test] Your installation is complete!
 ```
 
-**If you have trouble installing, check the [TroubleShotting](TROUBLESHOOTING.md) document.**
+**If you have trouble installing, check the [TroubleShotting](TROUBLESHOOT.md) document.**
