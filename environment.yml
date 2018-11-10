@@ -4,3 +4,4 @@ dependencies:
  - pip:
     - numpy
     - MAMEToolkit
+ - qt

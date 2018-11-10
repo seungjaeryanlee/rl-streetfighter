@@ -1,6 +1,8 @@
 # Installation
 
-This installation has been tested on **Ubuntu 16.04 LTS** with **Python 3.6** using Anaconda.
+This installation has been tested on **Ubuntu 16.04 LTS** with **Python 3.6 and 3.7** using Anaconda.
+
+
 
 ## Create Conda Environment
 
@@ -18,17 +20,27 @@ You should get logs something like this:
 Solving environment: done
 
 Downloading and Extracting Packages
-pip-18.1             | 1.7 MB    | ###################################################################### | 100%
-wheel-0.32.2         | 35 KB     | ###################################################################### | 100%
-python-3.7.1         | 36.4 MB   | ###################################################################### | 100%
-sqlite-3.25.2        | 1.9 MB    | ###################################################################### | 100%
-certifi-2018.10.15   | 138 KB    | ###################################################################### | 100%
-setuptools-40.5.0    | 615 KB    | ###################################################################### | 100%
-openssl-1.1.1        | 5.0 MB    | ###################################################################### | 100%
+openssl-1.0.2p       |  3.5 MB | ########################################################################################################################################## | 100%
+libxml2-2.9.8        |  2.0 MB | ########################################################################################################################################## | 100%
+pcre-8.42            |  251 KB | ########################################################################################################################################## | 100%
+expat-2.2.6          |  187 KB | ########################################################################################################################################## | 100%
+gstreamer-1.14.0     |  3.8 MB | ########################################################################################################################################## | 100%
+fontconfig-2.13.0    |  291 KB | ########################################################################################################################################## | 100%
+freetype-2.9.1       |  822 KB | ########################################################################################################################################## | 100%
+certifi-2018.10.15   |  138 KB | ########################################################################################################################################## | 100%
+libxcb-1.13          |  502 KB | ########################################################################################################################################## | 100%
+ca-certificates-2018 |  124 KB | ########################################################################################################################################## | 100%
+libuuid-1.0.3        |   16 KB | ########################################################################################################################################## | 100%
+glib-2.56.2          |  5.0 MB | ########################################################################################################################################## | 100%
+qt-5.9.6             | 87.1 MB | ########################################################################################################################################## | 100%
+python-3.7.0         | 30.6 MB | ########################################################################################################################################## | 100%
+gst-plugins-base-1.1 |  6.3 MB | ########################################################################################################################################## | 100%
+libpng-1.6.35        |  335 KB | ########################################################################################################################################## | 100%
+dbus-1.13.2          |  554 KB | ########################################################################################################################################## | 100%
 Preparing transaction: done
 Verifying transaction: done
 Executing transaction: done
-Collecting numpy
+Collecting numpy (from -r /home/rlee/git/rl-streetfighter/condaenv.ts3voll6.requirements.txt (line 1))
   Downloading https://files.pythonhosted.org/packages/38/39/f73e104d44f19a6203e786d5204532e214443ea2954917b27f3229e7639b/numpy-1.15.4-cp37-cp37m-manylinux1_x86_64.whl (13.8MB)
     100% |████████████████████████████████| 13.9MB 2.8MB/s
 Installing collected packages: numpy
@@ -48,7 +60,12 @@ Successfully installed MAMEToolkit-1.0.2
 #     $ conda deactivate
 ```
 
-Activate the `sf3` environment.
+Activate the `sf3` environment with one of the following commands below.
+
+```
+conda activate sf3
+source activate sf3
+```
 
 ## MAME
 
@@ -58,18 +75,7 @@ There are [quite a few prerequisite Ubuntu packages](https://docs.mamedev.org/in
 sudo apt-get install git build-essential libsdl2-dev libsdl2-ttf-dev libfontconfig-dev qt5-default
 ```
 
-## Possible Errors
-
-In a perfect world, the setup should now be completed. However, when you try running `test_installation.py`, you will probably get these errors.
-
-
-### `GLIBCXX`
-
-```
-./mame: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.22' not found (required by ./mame)
-```
-
-We need to update `libstdc++6`. Since it is not in default repositories, we also need to add a repository. [[Source]](https://github.com/tensorflow/serving/issues/819#issuecomment-374526534)
+We also need to update `libstdc++6`. Since it is not in default repositories, we also need to add a repository. [[Source]](https://github.com/tensorflow/serving/issues/819#issuecomment-374526534)
 
 ```
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -77,30 +83,51 @@ sudo apt-get update
 sudo apt-get upgrade libstdc++6
 ```
 
-### `Qt_5`
 
-```
-./mame: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5: version `Qt_5.9' not found (required by ./mame)
-./mame: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5: version `Qt_5' not found (required by ./mame)
-./mame: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5: version `Qt_5' not found (required by ./mame)
-./mame: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5: version `Qt_5' not found (required by ./mame)
-```
 
-First, verify that you have correct version of Qt (5.9).
+## Qt
+
+Creating a conda environment with `environment.yml` should have installed Qt on your computer. Verify this with the `qmake` command:
 
 ```
 qmake -version
 ```
 
-You should get something like this:
-
 ```
 QMake version 3.1
-Using Qt version 5.9.6 in /home/rlee/anaconda3/lib
+Using Qt version 5.9.6 in /home/rlee/anaconda3/sf3/lib
 ```
 
-Set environment variable `LD_LIBRARY_PATH` to point to Anaconda.
+Set an environment variable `LD_LIBRARY_PATH` to the same location. (**WARNING: Change `/rlee/` to match your computer!**)
 
 ```
-export LD_LIBRARY_PATH=/home/rlee/anaconda3/lib
+export LD_LIBRARY_PATH=/home/rlee/anaconda3/envs/sf3/lib
 ```
+
+
+
+## Download ROM
+
+Download `sfiii3n.zip` from [some ROM website](https://edgeemu.net/details-24413.htm) and put it in `roms/` directory.
+
+
+
+
+## Run Test Script
+
+Try running `test_installation.py`:
+
+```
+python test_installation.py
+```
+
+A full screen MAME emulator should start, and after about 10 seconds, the emulator should quit. The console logs should be:
+
+```
+[test] Loaded SF3 from ROM file
+[test] Wait until learnable gameplay starts...
+[test] Start!
+[test] Your installation is complete!
+```
+
+**If you have trouble installing, check the [TroubleShotting](TROUBLESHOOTING.md) document.**

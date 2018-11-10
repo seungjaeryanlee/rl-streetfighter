@@ -2,6 +2,7 @@ import random
 import time
 from MAMEToolkit.sf_environment import Environment
 
+
 roms_path = 'roms/'  # Replace this with the path to your ROMs
 env = Environment('env1', roms_path)
 print('[random] Loaded SF3 from ROM file')

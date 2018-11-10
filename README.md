@@ -5,3 +5,4 @@ Street Fighter 3 environment with [MAME Toolkit](https://github.com/M-J-Murray/M
 ## Table of Contents
 
 1. [Installation](docs/INSTALLATION.md)
+2. [TroubleShooting](docs/TROUBLESHOOT.md)
